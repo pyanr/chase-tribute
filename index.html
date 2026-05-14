@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RIP ChaseJonja 2012–2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --or: #E8863A; --orl: #F5A855; --ord: #B85C1A;
+      --yw: #FFE082; --cr: #FFF8E7; --wh: #FFF0E8;
+      --pk: #FFB4C2; --dk: #2A1A0A;
+    }
+    body {
+      background: var(--cr);
+      font-family: 'Press Start 2P', monospace;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 28px 16px;
+    }
+    .page {
+      max-width: 640px; width: 100%;
+      display: flex; flex-direction: column; align-items: center; gap: 22px;
+    }
+
+    /* ── Scene ── */
+    .scene {
+      width: 100%; aspect-ratio: 16/7; min-height: 180px;
+      position: relative; overflow: hidden;
+      border: 5px solid var(--ord);
+      box-shadow: 5px 5px 0 var(--ord), inset 0 0 0 2px var(--yw);
+      background: linear-gradient(to bottom,
+        #87CEEB 0%, #B8E4F0 44%, #F5E6CC 52%, #D9B87C 70%, #C8A060 100%);
+    }
+    .scene::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(150deg, rgba(255,240,80,.18) 0%, transparent 42%);
+    }
+
+    /* ── Window ── */
+    .win {
+      position: absolute; top: 7%; left: 3%;
+      width: 19%; aspect-ratio: 3/4; min-width: 88px;
+      background: linear-gradient(to bottom, #87CEEB 0%, #9ED4A0 70%, #8BC34A 100%);
+      border: 6px solid #8B5E3C;
+      box-shadow: 3px 3px 0 #5C3A1A, inset 0 0 0 2px #B8844E;
+      overflow: hidden;
+    }
+    .win::before {
+      content: ''; position: absolute;
+      top: 0; left: 50%; width: 5px; height: 100%;
+      background: #8B5E3C; transform: translateX(-50%);
+    }
+    .win::after {
+      content: ''; position: absolute;
+      top: 50%; left: 0; width: 100%; height: 5px;
+      background: #8B5E3C; transform: translateY(-50%);
+    }
+    .win-tree {
+      position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+      width: 30px; height: 44px;
+    }
+    .win-tree::before {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 7px; height: 20px; background: #7B4A1E;
+    }
+    .win-tree::after {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #4A8A2A; box-shadow: 0 0 0 5px #3D6E1C;
+    }
+    .curtain {
+      position: absolute; top: -6px; bottom: -6px; width: 20%;
+      background: #FFDAB9; z-index: 2;
+    }
+    .curtain.l { left: -6px; box-shadow: inset -4px 0 8px rgba(180,100,50,.2); }
+    .curtain.r { right: -6px; box-shadow: inset 4px 0 8px rgba(180,100,50,.2); }
+    .win-rod {
+      position: absolute; top: -12px; left: -12px; right: -12px;
+      height: 7px; background: #A07840; z-index: 3;
+    }
+    .win-rod::before, .win-rod::after {
+      content: ''; position: absolute; top: -4px;
+      width: 13px; height: 13px; border-radius: 50%; background: #C09050;
+    }
+    .win-rod::before { left: -4px; }
+    .win-rod::after  { right: -4px; }
+
+    /* ── Trees ── */
+    .trees {
+      position: absolute; right: 6%; top: 0; bottom: 21%;
+      display: flex; align-items: flex-end; gap: 14px;
+    }
+    .tree { display: flex; flex-direction: column; align-items: center; }
+    .tc { border-radius: 50%; }
+    .tt { background: #7B4A1E; }
+
+    /* ── Grass ── */
+    .grass {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 20%;
+      background: #7CB342;
+    }
+    .grass::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 7px;
+      background: repeating-linear-gradient(90deg, #9CCC65 0 10px, #7CB342 10px 18px);
+    }
+
+    /* ── Bed ── */
+    .bed-area {
+      position: absolute; bottom: 17%; left: 50%; transform: translateX(-36%);
+      width: 200px; height: 145px;
+    }
+    .bed {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 54px;
+      border-radius: 50%; background: #8B3A10;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bed-inner {
+      width: 88%; height: 78%; border-radius: 50%;
+      background: radial-gradient(ellipse at 35% 35%, #FFD880, #E8A050 55%, #C05A20);
+    }
+
+    /* ── Cat ── */
+    .cat {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      width: 155px; height: 82px;
+    }
+
+    /* Tail */
+    .c-tail {
+      position: absolute; left: 0; bottom: 10px;
+      width: 30px; height: 50px;
+      border: 12px solid var(--or);
+      border-top: none; border-right: none; border-radius: 0 0 0 65%;
+      animation: breathe 3.2s ease-in-out infinite;
+    }
+    .c-tail::after {
+      content: ''; position: absolute; bottom: -15px; left: -14px;
+      width: 17px; height: 17px; border-radius: 50%; background: var(--orl);
+    }
+
+    /* Body */
+    .c-body {
+      position: absolute; bottom: 0; left: 18px;
+      width: 118px; height: 44px; border-radius: 50%; background: var(--or);
+      animation: breathe 3.2s ease-in-out infinite;
+    }
+    .c-body::before {
+      content: ''; position: absolute; top: 8px; left: 18px;
+      width: 14px; height: 30px; border-radius: 50%;
+      background: var(--ord); opacity: .35;
+    }
+
+    /* Chest */
+    .c-chest {
+      position: absolute; top: 4px; right: 12px;
+      width: 58px; height: 36px; border-radius: 50%; background: var(--wh);
+    }
+
+    /* Paws */
+    .c-paws {
+      position: absolute; bottom: 0; right: 10px;
+      width: 56px; height: 14px; border-radius: 50%; background: var(--or);
+    }
+    .c-paws::after {
+      content: ''; position: absolute; inset: 3px 9px;
+      border-radius: 50%; background: var(--wh);
+    }
+
+    /* Head */
+    .c-head {
+      position: absolute; top: 0; right: 0;
+      width: 54px; height: 54px; border-radius: 50%; background: var(--or);
+      transition: transform .75s cubic-bezier(.34,1.4,.64,1);
+      animation: breathe 3.2s ease-in-out infinite; animation-delay: -.5s;
+    }
+
+    /* Ears */
+    .c-ear {
+      position: absolute; top: -14px;
+      width: 0; height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 18px solid var(--or);
+    }
+    .c-ear::after {
+      content: ''; position: absolute; top: 4px; left: -6px;
+      width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 10px solid var(--pk);
+    }
+    .c-ear.el { left: 6px; }
+    .c-ear.er { right: 6px; }
+
+    /* Eyes — sleeping arc */
+    .c-eye {
+      position: absolute; top: 20px;
+      width: 14px; height: 7px;
+      border: 2px solid var(--dk);
+      border-top-color: transparent; border-left-color: transparent; border-right-color: transparent;
+      border-radius: 0 0 50% 50%;
+      transition: all .4s ease;
+    }
+    .c-eye.el { left: 8px; }
+    .c-eye.er { right: 8px; }
+
+    /* Nose */
+    .c-nose {
+      position: absolute; top: 29px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent; border-right: 5px solid transparent;
+      border-top: 5px solid var(--pk);
+    }
+
+    /* Zzz */
+    .c-zzz {
+      position: absolute; top: -22px; right: -6px;
+      font-size: 9px; color: var(--ord); opacity: 0;
+      animation: floatz 3s ease-in-out 1.5s infinite;
+      pointer-events: none; user-select: none;
+    }
+    @keyframes floatz {
+      0%   { opacity: 0; transform: translate(0,0) scale(.8); }
+      25%  { opacity: .75; }
+      100% { opacity: 0; transform: translate(6px,-16px) scale(1.1); }
+    }
+
+    /* ── Breathing ── */
+    @keyframes breathe {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-2px); }
+    }
+
+    /* ── Pet states ── */
+    .cat.stirring .c-head,
+    .cat.looking  .c-head {
+      transform: translateY(-15px) rotate(-7deg);
+      animation: none;
+    }
+    .cat.settling .c-head {
+      transform: translateY(0) rotate(0);
+      animation: breathe 3.2s ease-in-out infinite;
+    }
+    .cat.stirring .c-zzz,
+    .cat.looking  .c-zzz,
+    .cat.settling .c-zzz { animation: none; opacity: 0; }
+
+    /* Sleepy half-open side-eye */
+    .cat.looking .c-eye {
+      height: 6px; background: var(--dk);
+      border: none; border-radius: 3px 3px 4px 4px;
+    }
+    .cat.looking .c-eye.er { width: 10px; }
+
+    /* ── Page text ── */
+    h1 {
+      font-size: clamp(13px, 2.8vw, 20px); color: var(--ord);
+      text-align: center; line-height: 2.2;
+      text-shadow: 3px 3px 0 var(--yw);
+    }
+    .years {
+      font-size: clamp(9px, 1.8vw, 12px); color: #B87040;
+      text-align: center; letter-spacing: 4px; margin-top: -8px;
+    }
+
+    /* ── Button ── */
+    .pet-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(9px, 1.8vw, 12px);
+      background: var(--or); color: #FFF8E7;
+      border: none; padding: 13px 24px; cursor: pointer;
+      box-shadow: 4px 4px 0 var(--ord); letter-spacing: 1px;
+      transition: transform .1s, box-shadow .1s;
+    }
+    .pet-btn:hover  { background: var(--orl); transform: translate(-1px,-1px); box-shadow: 5px 5px 0 var(--ord); }
+    .pet-btn:active { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--ord); }
+    .pet-btn:disabled { opacity: .58; cursor: default; transform: none; }
+
+    /* ── Card ── */
+    .card {
+      width: 100%; background: #FFF3E0;
+      border: 4px solid var(--or); box-shadow: 4px 4px 0 var(--ord);
+      padding: 22px 26px;
+    }
+    .card h2 {
+      font-size: clamp(8px, 1.6vw, 11px); color: var(--ord);
+      text-align: center; margin-bottom: 18px;
+    }
+    .card ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .card li {
+      font-size: clamp(7px, 1.4vw, 9px); line-height: 1.9;
+      padding-left: 18px; position: relative; color: #3A2010;
+    }
+    .card li::before { content: '♥'; position: absolute; left: 0; color: var(--or); }
+
+    .hearts { font-size: 18px; letter-spacing: 8px; color: var(--or); }
+    footer { font-size: 7px; color: #B8885A; text-align: center; line-height: 2.4; letter-spacing: 1px; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hearts">♥ ♥ ♥ ♥ ♥</div>
+
+  <div class="scene">
+
+    <div class="win">
+      <div class="curtain l"></div>
+      <div class="curtain r"></div>
+      <div class="win-rod"></div>
+      <div class="win-tree"></div>
+    </div>
+
+    <div class="trees">
+      <div class="tree">
+        <div class="tc" style="width:54px;height:54px;background:#3D6E1C;box-shadow:0 0 0 7px #2D5A1B"></div>
+        <div class="tc" style="width:42px;height:42px;background:#5A9E2C;margin-top:-20px"></div>
+        <div class="tt" style="width:12px;height:58px"></div>
+      </div>
+      <div class="tree">
+        <div class="tc" style="width:40px;height:40px;background:#3D6E1C;box-shadow:0 0 0 5px #2D5A1B"></div>
+        <div class="tc" style="width:30px;height:30px;background:#5A9E2C;margin-top:-14px"></div>
+        <div class="tt" style="width:9px;height:44px"></div>
+      </div>
+    </div>
+
+    <div class="grass"></div>
+
+    <div class="bed-area">
+      <div class="bed"><div class="bed-inner"></div></div>
+
+      <div class="cat" id="cat">
+        <div class="c-tail"></div>
+        <div class="c-body">
+          <div class="c-chest"></div>
+        </div>
+        <div class="c-paws"></div>
+        <div class="c-head">
+          <div class="c-ear el"></div>
+          <div class="c-ear er"></div>
+          <div class="c-eye el"></div>
+          <div class="c-eye er"></div>
+          <div class="c-nose"></div>
+          <div class="c-zzz">z</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <h1>RIP ChaseJonja</h1>
+  <p class="years">2012 — 2026</p>
+
+  <button class="pet-btn" id="petBtn">Pet the Cat 🐾</button>
+
+  <div class="card">
+    <h2>♥ Fun Facts About Chase ♥</h2>
+    <ul>
+      <li>Incredibly vocal — always had something to say</li>
+      <li>Orange and white with a fluffy white chest</li>
+      <li>Lived with his family for 14 wonderful years</li>
+      <li>Could charm anyone who walked through the door</li>
+      <li>Loved sunny spots and long naps more than anything</li>
+    </ul>
+  </div>
+
+  <div class="hearts">♥ ♥ ♥ ♥ ♥</div>
+  <footer>forever in our hearts · ChaseJonja 2012–2026</footer>
+
+</div>
+
+<script>
+  const cat = document.getElementById('cat');
+  const btn = document.getElementById('petBtn');
+
+  btn.addEventListener('click', () => {
+    if (cat.dataset.busy) return;
+    cat.dataset.busy = '1';
+    btn.disabled = true;
+
+    cat.classList.add('stirring');
+
+    setTimeout(() => cat.classList.replace('stirring', 'looking'),  900);
+    setTimeout(() => cat.classList.replace('looking',  'settling'), 2600);
+    setTimeout(() => {
+      cat.classList.remove('settling');
+      delete cat.dataset.busy;
+      btn.disabled = false;
+    }, 3700);
+  });
+</script>
+</body>
+</html>
